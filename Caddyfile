@@ -6,7 +6,7 @@
 :{$PORT} {
     encode zstd gzip
 
-    reverse_proxy backend-0 backend-1 backend-2
+    reverse_proxy backend-0:8000 backend-1:8000 backend-2:8000
 
     log {
         format json
