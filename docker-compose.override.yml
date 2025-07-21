@@ -1,0 +1,53 @@
+services:
+  caddy:
+    ports:
+      - "80:80"
+      - "443:443"
+  backend-0:
+    restart: no
+    expose:
+      - "8000"
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
+    develop:
+      watch:
+        - path: .
+          action: sync
+          target: /app
+          ignore:
+            - .venv
+        - path: ./pyproject.toml
+          action: rebuild
+    environment:
+      - MACHINE_ID=0
+  backend-1:
+    restart: no
+    expose:
+      - "8000"
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
+    develop:
+      watch:
+        - path: .
+          action: sync
+          target: /app
+          ignore:
+            - .venv
+        - path: ./pyproject.toml
+          action: rebuild
+    environment:
+      - MACHINE_ID=1
+  backend-2:
+    restart: no
+    expose:
+      - "8000"
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
+    develop:
+      watch:
+        - path: .
+          action: sync
+          target: /app
+          ignore:
+            - .venv
+        - path: ./pyproject.toml
+          action: rebuild
+    environment:
+      - MACHINE_ID=2
