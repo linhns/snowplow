@@ -1,0 +1,14 @@
+{
+    admin off
+    auto_https off
+}
+
+:{$PORT} {
+    encode zstd gzip
+
+    reverse_proxy backend-0 backend-1 backend-2
+
+    log {
+        format json
+    }
+}
