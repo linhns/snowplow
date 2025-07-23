@@ -3,11 +3,13 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    environment:
+      - PORT=80
   backend-0:
     restart: no
     expose:
-      - "8000"
-    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
+      - "80"
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", ":::80"]
     develop:
       watch:
         - path: .
@@ -22,8 +24,8 @@ services:
   backend-1:
     restart: no
     expose:
-      - "8000"
-    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
+      - "80"
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", ":::80"]
     develop:
       watch:
         - path: .
@@ -38,8 +40,8 @@ services:
   backend-2:
     restart: no
     expose:
-      - "8000"
-    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
+      - "80"
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", ":::80"]
     develop:
       watch:
         - path: .

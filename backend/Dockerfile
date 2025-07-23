@@ -24,4 +24,4 @@ COPY ./app /app/app
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync
 
-CMD ["hypercorn", "app.main:app", "--bind", "::"]
+CMD sh -c 'hypercorn app.main:app --bind ":::${PORT:-8000}"'
