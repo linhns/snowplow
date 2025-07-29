@@ -7,9 +7,7 @@ services:
       - PORT=80
   backend-0:
     restart: no
-    expose:
-      - "80"
-    command: ["hypercorn", "app.main:app", "--reload", "--bind", ":::80"]
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
     develop:
       watch:
         - path: .
@@ -23,9 +21,7 @@ services:
       - MACHINE_ID=0
   backend-1:
     restart: no
-    expose:
-      - "80"
-    command: ["hypercorn", "app.main:app", "--reload", "--bind", ":::80"]
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
     develop:
       watch:
         - path: .
@@ -39,9 +35,7 @@ services:
       - MACHINE_ID=1
   backend-2:
     restart: no
-    expose:
-      - "80"
-    command: ["hypercorn", "app.main:app", "--reload", "--bind", ":::80"]
+    command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
     develop:
       watch:
         - path: .
@@ -53,3 +47,11 @@ services:
           action: rebuild
     environment:
       - MACHINE_ID=2
+  frontend:
+    restart: no
+    ports:
+      - "5173:80"
+    build:
+      context: ./frontend
+      args:
+        - VITE_API_URL=http://localhost:80
