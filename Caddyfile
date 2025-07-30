@@ -1,14 +1,42 @@
 {
-    admin off
-    auto_https off
+	admin off
+	auto_https off
+	log {
+		format json
+	}
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+(lb_settings) {
+	lb_policy round_robin
+	lb_retries 100
+	lb_try_duration 10s
+	lb_try_interval 250ms
 }
 
 :{$PORT} {
-    encode zstd gzip
+	encode zstd gzip
 
-    reverse_proxy backend-0:8000 backend-1:8000 backend-2:8000
+	reverse_proxy {
+		dynamic a {
+			name {$FRONTEND_DOMAIN}
+			port {$FRONTEND_PORT}
+			refresh 1s
+			dial_timeout 30s
+		}
 
-    log {
-        format json
-    }
+		import lb_settings
+
+		header_up Host {upstream_hostport}
+	}
+
+	handle_path {$BACKEND_PATH:/api}/* {
+		reverse_proxy backend-0:8000 backend-1:8000 backend-2:8000 {
+			import lb_settings
+
+			header_up Host {upstream_hostport}
+		}
+	}
 }
