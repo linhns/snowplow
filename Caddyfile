@@ -19,14 +19,7 @@
 :{$PORT} {
 	encode zstd gzip
 
-	reverse_proxy {
-		dynamic a {
-			name {$FRONTEND_DOMAIN}
-			port {$FRONTEND_PORT}
-			refresh 1s
-			dial_timeout 30s
-		}
-
+	reverse_proxy frontend:80 {
 		import lb_settings
 
 		header_up Host {upstream_hostport}
