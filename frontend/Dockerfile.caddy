@@ -25,6 +25,6 @@ COPY Caddyfile ./
 
 RUN caddy fmt Caddyfile --overwrite
 
-COPY --from=builder /app/dist/ ./dist
+COPY --from=builder /app/dist/ /srv
 
 CMD ["caddy", "run", "--config", "Caddyfile", "--adapter", "caddyfile"]

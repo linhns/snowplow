@@ -13,7 +13,7 @@
 :{$PORT:3000} {
     respond /health 200
 
-	root * dist
+	root * /srv
 
 	encode gzip
 
