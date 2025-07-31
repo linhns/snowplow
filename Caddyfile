@@ -19,7 +19,7 @@
 :{$PORT} {
 	encode zstd gzip
 
-	reverse_proxy frontend:80 {
+	reverse_proxy {$FRONTEND_DOMAIN}:{$FRONTEND_PORT} {
 		import lb_settings
 
 		header_up Host {upstream_hostport}
