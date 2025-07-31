@@ -10,10 +10,10 @@
 	}
 }
 
-:{$PORT:3000} {
-    respond /health 200
+:{$PORT:5173} {
+	respond /health 200
 
-	root * /srv
+	root * dist
 
 	encode gzip
 
