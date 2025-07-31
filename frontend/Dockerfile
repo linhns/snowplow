@@ -15,8 +15,12 @@ RUN npm run build
 
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.29-alpine
+FROM caddy:alpine
 
-COPY --from=builder /app/dist/ /usr/share/nginx/html
+WORKDIR /app
 
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY Caddyfile ./
+
+COPY --from=builder /app/dist/ ./dist
+
+CMD ["caddy", "run", "--config", "Caddyfile", "--adapter", "caddyfile"]
