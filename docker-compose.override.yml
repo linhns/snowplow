@@ -7,8 +7,6 @@ services:
       - PORT=80
       - FRONTEND_DOMAIN=frontend
       - FRONTEND_PORT=80
-      - BACKEND_DOMAIN=backend
-      - BACKEND_PORT=8000
   backend-0:
     restart: no
     command: ["hypercorn", "app.main:app", "--reload", "--bind", "::"]
@@ -53,6 +51,8 @@ services:
       - MACHINE_ID=2
   frontend:
     restart: no
+    ports:
+      - "5173:5173"
     build:
       context: ./frontend
       args:

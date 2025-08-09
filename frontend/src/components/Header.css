@@ -1,0 +1,40 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+}
+
+.header>.title {
+    font-size: 1.5rem;
+}
+
+@media (min-width: 576px) {
+    .header {
+        padding: 0 0.75rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 0 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .header {
+        padding: 0 1.25rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    .header {
+        padding: 0 1.75rem;
+    }
+}
